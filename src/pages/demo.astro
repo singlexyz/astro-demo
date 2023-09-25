@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/main.astro";
+---
+
+<Layout
+  content={{
+    title: "demo",
+  }}
+>
+  <h1 id="title" class="tracking-wide text-6xl font-mono">HELLO WORLD</h1>
+</Layout>
+
+<script>
+  const el = document.querySelector<HTMLHeadingElement>("#title");
+  const now = "HELLO WORLD".split("");
+  const next = "FUCK YOU".split("");
+  const letters = "qwerasdfzxcvtgbyhnujmikolp!@#$%^&*()_+".split("");
+  const FRAME = 20;
+  const STEP = 1 / 4;
+
+  document.documentElement.addEventListener("click", animate);
+
+  let i = -1;
+  let timer: number;
+
+  function pick() {
+    return letters.at(random(letters.length));
+  }
+
+  function random(max: number, min = 0) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function update(text: string) {
+    el.textContent = text;
+    if (i >= now.length) {
+      reset();
+    }
+  }
+
+  function reset() {
+    i = -1;
+    clearInterval(timer);
+  }
+
+  function animate(values = now) {
+    reset();
+    timer = setInterval(function () {
+      i += STEP;
+      const l = now.map((v, k) => {
+        if (k < i) {
+          return v;
+        } else {
+          return pick();
+        }
+      });
+      update(l.join(""));
+    }, FRAME);
+  }
+
+  animate();
+</script>

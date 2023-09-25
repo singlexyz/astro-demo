@@ -1,15 +1,23 @@
 ---
 const { content } = Astro.props;
+const { frontmatter } = Astro.props;
+import { ViewTransitions } from "astro:transitions";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{content.title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{content.title}</title>
+    <meta name="view-transition" content="same-origin" />
+    <!-- <ViewTransitions /> -->
+  </head>
+  <body>
+    <div
+      class="min-h-screen flex justify-center items-center container mx-auto px-4 py-6 prose prose-slate"
+    >
+      <slot />
+    </div>
+  </body>
 </html>

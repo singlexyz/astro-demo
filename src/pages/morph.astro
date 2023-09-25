@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/main.astro";
+---
+
+<Layout content={{ id: "container", title: "Morph" }}>
+  <div class="cube" id="cube">
+    <div class="side"></div>
+    <div class="side"></div>
+    <div class="side"></div>
+    <div class="side"></div>
+    <div class="side"></div>
+    <div class="side"></div>
+  </div>
+  <input
+    type="range"
+    min="0"
+    max="100"
+    step="1"
+    id="range"
+    class="fixed right-4 top-4"
+  />
+</Layout>
+
+<script>
+  range.addEventListener("input", function (e) {
+    document.querySelector("body > div").style.perspective = "1000px";
+    document.querySelector("body > div").style.perspectiveOrigin =
+      e.target.value + "% " + "center";
+  });
+</script>
+
+<style>
+  .cube {
+    --primary: firebrick;
+    transform-style: preserve-3d;
+    position: relative;
+    /* transform: rotatey(-30deg) rotatex(30deg); */
+    animation: rotate 20s linear infinite both;
+    aspect-ratio: 1;
+    --radius: 3em;
+    width: calc(var(--radius) * 2);
+  }
+  @keyframes rotate {
+    /* to { transform: rotatey(1turn) rotatez(4turn) rotatez(2turn) } */
+  }
+  .side {
+    position: absolute;
+    inset: 0;
+    background-color: var(--primary);
+    box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.9);
+  }
+
+  .side:nth-of-type(1) {
+    transform: translatez(var(--radius));
+  }
+  .side:nth-of-type(2) {
+    transform: translatez(calc(var(--radius) * -1));
+  }
+  .side:nth-of-type(3) {
+    transform: rotatey(90deg) translatez(var(--radius));
+  }
+  .side:nth-of-type(4) {
+    transform: rotatey(270deg) translatez(var(--radius));
+  }
+  .side:nth-of-type(5) {
+    transform: rotatex(90deg) translatez(var(--radius));
+  }
+  .side:nth-of-type(6) {
+    transform: rotatex(270deg) translatez(var(--radius));
+  }
+</style>

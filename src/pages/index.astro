@@ -1,25 +1,114 @@
 ---
 // Component Imports
-import Button from "../components/Button.astro";
+
+import Nav from "../components/Nav.astro";
+import Layout from "../layouts/main.astro";
+
+import Cat from "../images/cat.avif";
+import Dog from "../images/cat.avif";
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro + TailwindCSS</title>
-  </head>
-  <body>
-    <div class="grid place-items-center h-screen content-center">
-      <Button>Tailwind Button in Astro!</Button>
-      <a href="/markdown-page" class="p-4 underline"
-        >Markdown is also supported...</a
-      >
+<style>
+  .el {
+    position: fixed;
+    left: 1rem;
+    bottom: 50%;
+    aspect-ratio: 1;
+    background-color: black;
+    transition:
+      all 0.3s,
+      width 0.2s;
+    display: flex;
+    inset: 0;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    --a: 300deg;
+    transform: rotate(var(--a)) translate(200px, 0px) translate(-200px, 0)
+      rotate(calc(var(--a) * -1));
+    width: 30px;
+    font-size: 0.6rem;
+    z-index: 91823;
+    --shadow: rgba(0, 0, 0, 0.035);
+    border-radius: 0.15rem;
+    box-shadow:
+      0 1px 1px var(--shadow),
+      0 2px 2px var(--shadow),
+      0 4px 4px var(--shadow),
+      0 8px 8px var(--shadow),
+      0 16px 16px var(--shadow);
+  }
+  .el > div {
+    position: absolute;
+    background-color: black;
+    transition: all 0.3s 0.06s;
+    border-radius: 0.15rem;
+    box-shadow:
+      0 1px 1px var(--shadow),
+      0 2px 2px var(--shadow),
+      0 4px 4px var(--shadow),
+      0 8px 8px var(--shadow),
+      0 16px 16px var(--shadow);
+  }
+  .el .a,
+  .el .b {
+    width: 100%;
+    height: 30%;
+  }
+  .el .c,
+  .el .d {
+    height: 100%;
+    width: 30%;
+  }
+  .el .a {
+    top: 0;
+  }
+  .el .b {
+    bottom: 0;
+  }
+  .el .c {
+    left: 0;
+  }
+  .el .d {
+    right: 0;
+  }
+  body:hover .el {
+    width: 100px;
+    transform: rotate(0deg) translate(0px, 0px) translate(0px, 0px) rotate(0deg);
+  }
+  /* body:hover .el > div { transition-delay: .15s; } */
+  body:hover .el .a {
+    transform: translatey(calc(-100% - 0.5rem));
+  }
+  body:hover .el .b {
+    transform: translatey(calc(100% + 0.5rem));
+  }
+  body:hover .el .c {
+    transform: translatex(calc(-100% - 0.5rem));
+  }
+  body:hover .el .d {
+    transform: translatex(calc(100% + 0.5rem));
+  }
+</style>
+
+<Layout content={{ title: "Fuck" }}>
+  <Nav />
+  <div class="el">
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+    <div class="d"></div>
+  </div>
+
+  <div class="w-64 flex flex-col leading-snug">
+    <img transition:name="cat" src={Cat} class="mb-3" />
+    <div class="px-0 flex flex-col items-start">
+      <h3 transition:name="title" class="my-0 text-base">Just a Cat</h3>
+      <p transition:name="summary" class="my-0 text-sm">New line</p>
     </div>
-  </body>
-</html>
+  </div>
+</Layout>
